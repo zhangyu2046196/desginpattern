@@ -10,15 +10,20 @@ package com.youyuan.template;
  */
 public abstract class SoyaMilk {
 
+    public ThreadLocal<Boolean> isResume = new ThreadLocal<>();
+
     /**
      * 制作豆浆过程方法  定义为final类型防止子类重写
      */
     public final void make() {
+        isResume.set(Boolean.TRUE);
         select();
+        System.out.println("第一步:" + isResume.get());
         if (isAddIngredients()) {
             addIngredients();
         }
         soak();
+        System.out.println("第二步:" + isResume.get());
         breakSoya();
     }
 
@@ -26,7 +31,10 @@ public abstract class SoyaMilk {
      * 选材
      */
     public void select() {
-        System.out.println("第一步：选择好黄豆");
+        System.out.println("select");
+        if (isResume.get()){
+            System.out.println("第一步：选择好黄豆");
+        }
     }
 
     /**
@@ -38,14 +46,20 @@ public abstract class SoyaMilk {
      * 浸泡
      */
     public void soak() {
-        System.out.println("第二步：浸泡黄豆和口味配料");
+        System.out.println("soak");
+        if (isResume.get()) {
+            System.out.println("第二步：浸泡黄豆和口味配料");
+        }
     }
 
     /**
      * 打碎
      */
     public void breakSoya() {
-        System.out.println("第三步：把黄豆和配料打碎");
+        System.out.println("breakSoya");
+        if (isResume.get()){
+            System.out.println("第三步：把黄豆和配料打碎");
+        }
     }
 
     /**

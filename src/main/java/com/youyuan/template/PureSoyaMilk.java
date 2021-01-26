@@ -16,6 +16,8 @@ public class PureSoyaMilk extends SoyaMilk {
 
     @Override
     public boolean isAddIngredients() {
+        isResume.set(Boolean.FALSE);
+        Thread.currentThread().resume();
         return false;
     }
 }
